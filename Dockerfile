@@ -18,6 +18,7 @@ RUN apt-get purge -y \
     && apt-get clean
 
 ADD run.sh /run.sh
+RUN chmod +x /run.sh
 
 EXPOSE 80
 
