@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Env used by qiandao/config.py for database connections
 export JAWSDB_MARIA_URL="http://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
 
 # Create tables if not exists. Won't overwrite tables if exists
@@ -13,10 +14,8 @@ mysql_exec() {
         ${MYSQL_DATABASE}
 }
 
-until mysql_exec ';'; do
-  sleep 3
-done
-
+# Use /wait-for-it.sh in docker-compose to wait for database
 mysql_exec 'source /qiandao/qiandao.sql'
 
-python /qiandao/run.py
+# App entry
+/qiandao/run.py
