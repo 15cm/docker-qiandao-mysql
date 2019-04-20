@@ -2,17 +2,17 @@ From debian:stretch
 
 RUN apt-get update \
     && apt-get install -y python-pip autoconf g++ python-pbkdf2 \
-    mariadb-client wget unzip
+    mariadb-client
 
-RUN wget https://github.com/binux/qiandao/archive/master.zip -O qiandao-master.zip \
-    && unzip qiandao-master.zip \
-    && rm qiandao-master.zip \
+ADD https://github.com/binux/qiandao/archive/master.tar.gz /qiandao-master.tar.gz
+RUN tar xf qiandao-master.tar.gz \
+    && rm qiandao-master.tar.gz \
     && mv qiandao-master qiandao
 
 RUN pip install --no-cache-dir -r qiandao/requirements.txt
 
 RUN apt-get purge -y \
-    mariadb-client autoconf g++ wget unzip \
+    mariadb-client autoconf g++ \
     && apt-get clean
 
 ADD run.sh /run.sh
