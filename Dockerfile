@@ -1,7 +1,5 @@
 From debian:stretch
 
-ENV DB_TYPE=mysql
-
 RUN apt-get update \
     && apt-get install -y python-pip autoconf g++ python-pbkdf2 \
     mariadb-client wget unzip
@@ -19,6 +17,13 @@ RUN apt-get purge -y \
 
 ADD run.sh /run.sh
 RUN chmod +x /run.sh
+
+ENV DB_TYPE=mysql
+ENV MYSQL_HOST=localhost
+ENV MYSQL_PORT=3306
+ENV MYSQL_DATABASE=qiandao
+ENV MYSQL_USER=qiandao
+ENV MYSQL_PASSWORD=qiandao
 
 EXPOSE 80
 
